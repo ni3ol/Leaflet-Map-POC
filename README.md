@@ -1,5 +1,7 @@
 # Leaflet Map POC
 
+![Screenshot](./src/screenshot.png)
+
 ## Generating hexagons
 https://github.com/uber/h3-js
 
