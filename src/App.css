@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+:root {
+  --map-tiles-filter: brightness(0.5) invert(1) contrast(3) hue-rotate(200deg)
+    saturate(0.3) brightness(0.7);
+}
+
+.map-tiles {
+  filter: var(--map-tiles-filter, none);
+}
+
+.circle {
+  z-index: 999;
+}
+
+.results {
+  background-color: white;
+}
+
+.leaflet-bar-part-single {
+  visibility: hidden;
+}
+
+.geosearch .leaflet-bar .leaflet-touch {
+  border: none !important;
+}
