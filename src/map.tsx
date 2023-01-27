@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "react-leaflet";
 import {
+  coordinates,
   hexBoundary1,
   hexBoundary2,
   hexBoundary3,
@@ -18,6 +19,7 @@ import {
 import { useState, useEffect } from "react";
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import { useMap } from "react-leaflet";
+import { cellToBoundary, latLngToCell } from "h3-js";
 
 const SearchField = () => {
   const provider = new OpenStreetMapProvider();
@@ -117,18 +119,35 @@ export const Map = () => {
 
         {/* <Polyline pathOptions={limeOptions} positions={polyline} /> */}
         {/* <TooltipCircle /> */}
-        <Polygon pathOptions={limeOptions} positions={multiPolyline}>
+        {/* <Polygon pathOptions={limeOptions} positions={multiPolyline}>
           <Popup>Routers: 9</Popup>
         </Polygon>
 
-        <Polygon pathOptions={purpleOptions} positions={polygon} />
+        <Polygon pathOptions={purpleOptions} positions={polygon} /> */}
         {/* <Polygon pathOptions={purpleOptions} positions={multiPolygon} / */}
-        <Polygon pathOptions={purpleOptions} positions={multiPolygon}>
+        {/* <Polygon pathOptions={purpleOptions} positions={multiPolygon}>
           <Tooltip sticky>Sticky tooltip</Tooltip>
         </Polygon>
         <Polygon pathOptions={redOptions} positions={hexBoundary3}>
           <Popup>Routers: 10</Popup>
-        </Polygon>
+        </Polygon> */}
+
+        {coordinates.map((location) => {
+          return (
+            <Polygon
+              pathOptions={redOptions}
+              positions={cellToBoundary(
+                latLngToCell(
+                  location.coordinates[0],
+                  location.coordinates[1],
+                  location.size
+                )
+              )}
+            >
+              <Popup>Routers: {location.routers}</Popup>
+            </Polygon>
+          );
+        })}
         {/* <Rectangle bounds={rectangle} pathOptions={blackOptions} /> */}
       </MapContainer>
     </div>

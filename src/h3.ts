@@ -1,5 +1,39 @@
 import { cellToBoundary, cellToLatLng, latLngToCell } from "h3-js";
 
+const baseLatLong = [14.627047927176175, -90.49565087885661];
+
+const latsAndLongs = [
+  {
+    coordinates: [baseLatLong[0], baseLatLong[1]],
+    routers: 10,
+    size: 7,
+  },
+];
+
+for (let i = 0; i < 20; i++) {
+  latsAndLongs.push({
+    coordinates: [
+      baseLatLong[0] - 0.01 * (i + 1),
+      baseLatLong[1] - 0.01 * (i + 1),
+    ],
+    routers: i + 1,
+    size: 7,
+  });
+}
+
+for (let i = 0; i < 20; i++) {
+  latsAndLongs.push({
+    coordinates: [
+      baseLatLong[0] + 0.01 * (i + 1),
+      baseLatLong[1] + 0.01 * (i + 1),
+    ],
+    routers: i + 1,
+    size: 7,
+  });
+}
+
+export const coordinates = latsAndLongs;
+
 // Convert a lat/lng point to a hexagon index at resolution 7
 const h3Index = latLngToCell(14.627047927176175, -90.49565087885661, 7);
 const h3Index2 = latLngToCell(14.636780442911116, -90.51044717335232, 7);
